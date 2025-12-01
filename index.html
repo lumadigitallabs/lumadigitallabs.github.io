@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Luma Digital Labs – Conseil & Automatisation IA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Luma Digital Labs – Cabinet de conseil spécialisé en automatisation, intelligence artificielle et transformation numérique.">
+    <link rel="icon" href="luma-logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        :root {
+            --bg-dark:#040913;
+            --bg-darker:#02040a;
+            --accent:#00a6ff;
+            --accent-soft:#1f78ff;
+            --text-main:#f7f7f7;
+            --text-muted:#b0b8c6;
+            --card-bg:#0c1422;
+            --border-soft:#1b2333;
+        }
+
+        body {
+            font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+            background: radial-gradient(circle at top, #08152a 0, #02040a 55%, #000 100%);
+            color:var(--text-main);
+            overflow-x:hidden;
+        }
+
+        a { color:inherit; text-decoration:none; }
+        ul { list-style:none; }
+
+        /* Layout */
+        .container {
+            width:100%;
+            max-width:1120px;
+            margin:0 auto;
+            padding:0 1.5rem;
+        }
+
+        /* Header */
+        header {
+            position:sticky;
+            top:0;
+            z-index:50;
+            background:linear-gradient(to bottom, rgba(4,9,19,0.95), rgba(4,9,19,0.85), transparent);
+            backdrop-filter:blur(18px);
+        }
+
+        .nav {
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:0.9rem 0;
+        }
+
+        .nav-left {
+            display:flex;
+            align-items:center;
+            gap:0.7rem;
+        }
+
+        .nav-logo {
+            width:40px;
+            height:40px;
+        }
+        .nav-title {
+            font-size:1.05rem;
+            letter-spacing:0.12em;
+            text-transform:uppercase;
+            font-weight:600;
+        }
+        .nav-sub {
+            font-size:0.7rem;
+            text-transform:uppercase;
+            color:var(--text-muted);
+        }
+
+        .nav-menu {
+            display:flex;
+            gap:1.6rem;
+            font-size:0.9rem;
+            color:var(--text-muted);
+        }
+        .nav-menu a {
+            position:relative;
+            padding-bottom:0.2rem;
+        }
+        .nav-menu a::after {
+            content:"";
+            position:absolute;
+            left:0;
+            bottom:0;
+            width:0;
+            height:2px;
+            background:var(--accent);
+            transition:width .20s ease-out;
+        }
+        .nav-menu a:hover::after {
+            width:100%;
+        }
+
+        /* Hero */
+        .hero {
+            padding:4.5rem 0 3.5rem;
+        }
+
+        .hero-grid {
+            display:grid;
+            grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
+            gap:2.5rem;
+            align-items:center;
+        }
+
+        .badge {
+            display:inline-flex;
+            align-items:center;
+            gap:0.4rem;
+            padding:0.2rem 0.7rem;
+            border-radius:999px;
+            background:rgba(15,118,255,0.08);
+            border:1px solid rgba(15,118,255,0.35);
+            color:var(--accent);
+            font-size:0.75rem;
+            text-transform:uppercase;
+            letter-spacing:0.12em;
+            margin-bottom:1.1rem;
+        }
+
+        .hero h1 {
+            font-size:2.6rem;
+            line-height:1.15;
+            margin-bottom:1rem;
+        }
+        .hero h1 span {
+            color:var(--accent);
+        }
+        .hero p {
+            font-size:0.98rem;
+            color:var(--text-muted);
+            max-width:34rem;
+            margin-bottom:1.6rem;
+        }
+
+        .hero-actions {
+            display:flex;
+            flex-wrap:wrap;
+            gap:0.9rem;
+            margin-bottom:1.6rem;
+        }
+
+        .btn {
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            padding:0.7rem 1.5rem;
+            border-radius:999px;
+            font-size:0.9rem;
+            font-weight:500;
+            cursor:pointer;
+            border:1px solid transparent;
+            transition:background .15s ease, transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+            text-align:center;
+        }
+
+        .btn-primary {
+            background:linear-gradient(135deg, var(--accent), var(--accent-soft));
+            color:#fff;
+            box-shadow:0 12px 30px rgba(0,166,255,0.35);
+        }
+        .btn-primary:hover {
+            transform:translateY(-1px);
+            box-shadow:0 16px 40px rgba(0,166,255,0.45);
+        }
+
+        .btn-ghost {
+            background:transparent;
+            border-color:var(--border-soft);
+            color:var(--text-muted);
+        }
+        .btn-ghost:hover {
+            border-color:var(--accent);
+            color:var(--accent);
+        }
+
+        .hero-meta {
+            display:flex;
+            flex-wrap:wrap;
+            gap:1.5rem;
+            font-size:0.8rem;
+            color:var(--text-muted);
+        }
+        .hero-meta strong {
+            display:block;
+            color:var(--text-main);
+            font-size:1rem;
+        }
+
+        .hero-card {
+            background:radial-gradient(circle at top, #122540 0, #050914 60%);
+            border-radius:1.2rem;
+            padding:1.6rem 1.4rem;
+            border:1px solid rgba(63,84,144,0.6);
+            box-shadow:0 24px 60px rgba(0,0,0,0.65);
+        }
+
+        .hero-logo-circle {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            margin-bottom:1.2rem;
+        }
+        .hero-logo-circle img {
+            width:70px;
+            height:70px;
+        }
+
+        .hero-card h2 {
+            font-size:1rem;
+            margin-bottom:0.8rem;
+            text-transform:uppercase;
+            letter-spacing:0.18em;
+            color:var(--text-muted);
+        }
+
+        .pill-list {
+            display:flex;
+            flex-wrap:wrap;
+            gap:0.4rem;
+            margin-top:0.8rem;
+        }
+        .pill {
+            padding:0.25rem 0.6rem;
+            border-radius:999px;
+            background:rgba(13,148,255,0.08);
+            border:1px solid rgba(148,163,184,0.3);
+            font-size:0.7rem;
+            color:var(--text-muted);
+        }
+
+        /* Sections */
+        section {
+            padding:3.5rem 0;
+        }
+        .section-title {
+            font-size:1.4rem;
+            margin-bottom:0.4rem;
+        }
+        .section-subtitle {
+            font-size:0.9rem;
+            color:var(--text-muted);
+            margin-bottom:2rem;
+        }
+
+        /* Services */
+        .grid-3 {
+            display:grid;
+            grid-template-columns:repeat(3, minmax(0,1fr));
+            gap:1.5rem;
+        }
+        .card {
+            background:var(--card-bg);
+            border-radius:1rem;
+            padding:1.4rem 1.3rem;
+            border:1px solid var(--border-soft);
+        }
+        .card h3 {
+            font-size:1rem;
+            margin-bottom:0.5rem;
+        }
+        .card p {
+            font-size:0.86rem;
+            color:var(--text-muted);
+        }
+        .tag {
+            display:inline-block;
+            font-size:0.7rem;
+            text-transform:uppercase;
+            letter-spacing:0.14em;
+            color:var(--accent);
+            margin-bottom:0.5rem;
+        }
+
+        /* Méthodologie */
+        .steps {
+            display:grid;
+            grid-template-columns:repeat(5,minmax(0,1fr));
+            gap:0.9rem;
+        }
+        .step {
+            background:linear-gradient(145deg,#0b1220,#050816);
+            border-radius:0.9rem;
+            padding:0.9rem 0.8rem;
+            border:1px solid var(--border-soft);
+            font-size:0.8rem;
+        }
+        .step-number {
+            width:22px;
+            height:22px;
+            border-radius:999px;
+            border:1px solid var(--accent);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:0.75rem;
+            margin-bottom:0.4rem;
+            color:var(--accent);
+        }
+        .step-title {
+            font-weight:600;
+            margin-bottom:0.25rem;
+            font-size:0.85rem;
+        }
+        .step p {
+            color:var(--text-muted);
+            font-size:0.78rem;
+        }
+
+        /* Use cases */
+        .usecases {
+            display:grid;
+            grid-template-columns:repeat(3,minmax(0,1fr));
+            gap:1.5rem;
+        }
+        .usecase h3 {
+            font-size:0.95rem;
+            margin-bottom:0.3rem;
+        }
+        .usecase p {
+            font-size:0.84rem;
+            color:var(--text-muted);
+        }
+
+        /* Contact */
+        .contact-box {
+            background:linear-gradient(135deg,#0b1220,#040716);
+            border-radius:1.1rem;
+            padding:1.8rem 1.6rem;
+            border:1px solid var(--border-soft);
+            display:flex;
+            flex-direction:column;
+            gap:0.9rem;
+        }
+        .contact-box p {
+            font-size:0.9rem;
+            color:var(--text-muted);
+        }
+        .contact-row {
+            display:flex;
+            flex-wrap:wrap;
+            gap:1.4rem;
+            font-size:0.86rem;
+        }
+        .contact-label {
+            font-weight:500;
+            color:var(--text-main);
+        }
+
+        footer {
+            border-top:1px solid #111827;
+            padding:1.4rem 0 2rem;
+            font-size:0.8rem;
+            color:var(--text-muted);
+            text-align:center;
+        }
+
+        /* Responsive */
+        @media (max-width:960px) {
+            .hero-grid {
+                grid-template-columns:1fr;
+            }
+            .hero-card {
+                margin-top:1.5rem;
+            }
+            .grid-3,
+            .steps,
+            .usecases {
+                grid-template-columns:1fr;
+            }
+            .nav-menu {
+                display:none; /* menu simplifié mobile */
+            }
+            header {
+                background:rgba(4,9,19,0.96);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container nav">
+        <div class="nav-left">
+            <!-- Mets ici ta version PNG du logo rond -->
+            <img src="luma-logo-circle.png" alt="Luma Digital Labs" class="nav-logo">
+            <div>
+                <div class="nav-title">LUMA</div>
+                <div class="nav-sub">Digital Labs</div>
+            </div>
+        </div>
+        <nav class="nav-menu">
+            <a href="#about">À propos</a>
+            <a href="#services">Services</a>
+            <a href="#methodo">Méthodologie</a>
+            <a href="#usecases">Cas d’usage</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div>
+                <div class="badge">
+                    <span>Conseil • IA • Automatisation</span>
+                </div>
+                <h1>
+                    Luma <span>Digital Labs</span><br />
+                    Cabinet de conseil en transformation numérique.
+                </h1>
+                <p>
+                    Nous aidons les organisations à identifier, prototyper et déployer
+                    des solutions d’IA et d’automatisation qui créent des gains
+                    mesurables : temps, qualité, sécurité et conformité.
+                </p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn btn-primary">Planifier un diagnostic gratuit</a>
+                    <a href="#services" class="btn btn-ghost">Voir nos services</a>
+                </div>
+                <div class="hero-meta">
+                    <div>
+                        <strong>Approche “Lab”</strong>
+                        Prototypes rapides, tests en sandbox, zéro risque opérationnel.
+                    </div>
+                    <div>
+                        <strong>Loi 25 & sécurité</strong>
+                        Intégration de la conformité au cœur des projets IA.
+                    </div>
+                </div>
+            </div>
+
+            <aside class="hero-card">
+                <div class="hero-logo-circle">
+                    <img src="luma-logo-gradient.png" alt="Logo Luma Digital Labs">
+                </div>
+                <h2>Ce que nous faisons</h2>
+                <p>
+                    Luma Digital Labs conçoit et implémente des architectures
+                    numériques qui automatisent vos processus clés : service
+                    client, opérations internes, conformité, gestion documentaire.
+                </p>
+                <div class="pill-list">
+                    <span class="pill">Diagnostic numérique</span>
+                    <span class="pill">Automatisation IA</span>
+                    <span class="pill">Agents & copilotes internes</span>
+                    <span class="pill">Sécurité & Loi 25</span>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- À PROPOS -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">Qui est Luma Digital Labs ?</h2>
+            <p class="section-subtitle">
+                Luma Digital Labs est un laboratoire de conseil spécialisé dans l’IA appliquée,
+                l’automatisation et la mise en conformité. Nous travaillons avec des PME,
+                organisations publiques et équipes internes qui veulent des résultats concrets,
+                pas des présentations PowerPoint.
+            </p>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title">Nos services</h2>
+            <p class="section-subtitle">
+                Une offre en trois blocs, pensée pour passer rapidement de l’idée au déploiement.
+            </p>
+
+            <div class="grid-3">
+                <article class="card">
+                    <div class="tag">01 • Diagnostic</div>
+                    <h3>Diagnostic IA & automatisation</h3>
+                    <p>
+                        Cartographie de vos processus, identification des tâches répétitives,
+                        risques Loi 25, opportunités IA, priorisation par ROI et faisabilité.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <div class="tag">02 • Prototype</div>
+                    <h3>Prototypes en laboratoire</h3>
+                    <p>
+                        Développement de scénarios IA en environnement isolé : copilotes internes,
+                        automatisation de courriels, extraction de données, rapports intelligents.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <div class="tag">03 • Déploiement</div>
+                    <h3>Intégration & accompagnement</h3>
+                    <p>
+                        Mise en production sécurisée, intégration avec vos outils existants
+                        (ERP, CRM, courriel, dossiers électroniques), formation et transfert.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- METHODOLOGIE -->
+    <section id="methodo">
+        <div class="container">
+            <h2 class="section-title">Méthodologie LUMA</h2>
+            <p class="section-subtitle">
+                Une approche en cinq étapes, inspirée des laboratoires : rapide, mesurable et sécurisée.
+            </p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Diagnostic</div>
+                    <p>Analyse des tâches répétitives, flux critiques, risques de non-conformité.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Prototype</div>
+                    <p>Conception d’un premier agent, script ou automatisation à haut impact.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Sandbox</div>
+                    <p>Tests contrôlés sur des jeux de données anonymisés ou limités.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Déploiement</div>
+                    <p>Intégration dans vos outils, monitoring et plan de reprise.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Amélioration</div>
+                    <p>Mesure du gain réel, optimisation continue, ajout de nouvelles briques IA.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CAS D'USAGE -->
+    <section id="usecases">
+        <div class="container">
+            <h2 class="section-title">Cas d’usage typiques</h2>
+            <p class="section-subtitle">
+                Quelques exemples concrets de ce que Luma Digital Labs peut automatiser ou sécuriser.
+            </p>
+
+            <div class="usecases">
+                <article class="card usecase">
+                    <h3>Support & réponses automatisées</h3>
+                    <p>
+                        Création d’agents IA qui répondent aux questions fréquentes,
+                        génèrent des brouillons de réponses et classent les demandes entrantes.
+                    </p>
+                </article>
+
+                <article class="card usecase">
+                    <h3>Rapports & conformité Loi 25</h3>
+                    <p>
+                        Automatisation de la génération de rapports, suivi des accès aux données,
+                        documentation des traitements et aide à la conformité.
+                    </p>
+                </article>
+
+                <article class="card usecase">
+                    <h3>Flux internes & opérations</h3>
+                    <p>
+                        Centralisation d’informations dispersées (courriels, PDF, dossiers),
+                        résumés intelligents, alertes et dashboards proactifs.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Parler à Luma Digital Labs</h2>
+            <p class="section-subtitle">
+                Un échange de 30 minutes suffit pour identifier 2–3 pistes d’automatisation à fort impact.
+            </p>
+
+            <div class="contact-box">
+                <p>
+                    Expliquez-nous votre contexte (secteur, taille, enjeux) et nous revenons avec
+                    une proposition structurée : diagnostic, prototype et plan de déploiement.
+                </p>
+
+                <div class="contact-row">
+                    <div>
+                        <div class="contact-label">Courriel</div>
+                        <div>contact@lumadigitallabs.com</div>
+                    </div>
+                    <div>
+                        <div class="contact-label">Téléphone</div>
+                        <div>+1 (000) 000-0000</div>
+                    </div>
+                    <div>
+                        <div class="contact-label">Disponibilités</div>
+                        <div>Lundi – Vendredi · 9h à 17h</div>
+                    </div>
+                </div>
+
+                <a href="mailto:contact@lumadigitallabs.com?subject=Diagnostic%20Luma%20Digital%20Labs" class="btn btn-primary" style="align-self:flex-start;margin-top:0.6rem;">
+                    Écrire à LUMA
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        © <span id="year"></span> Luma Digital Labs — Conseil en IA, automatisation et transformation numérique.
+    </div>
+</footer>
+
+<script>
+    // année automatique
+    document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
