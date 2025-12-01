@@ -1,536 +1,595 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <title>Luma Digital Labs – Web3, Blockchain & Contrats intelligents</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Luma Digital Labs – Cabinet de conseil spécialisé en Web3, blockchain et contrats intelligents. Architecture, développement et stratégie.">
-    <link rel="icon" href="luma-logo.png" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        :root {
-            --bg:#050712;
-            --bg-soft:#0b0f1f;
-            --accent:#23a4ff;
-            --accent-soft:#4fd2ff;
-            --text:#f5f7ff;
-            --muted:#a3afc7;
-            --border:#1a2134;
-        }
-        body {
-            font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-            background:radial-gradient(circle at top,#111b33 0,#050712 55%,#000 100%);
-            color:var(--text);
-            overflow-x:hidden;
-        }
-        a { color:inherit; text-decoration:none; }
-        ul { list-style:none; }
+  <meta charset="utf-8">
+  <title>Luma Digital Labs | Web3, Blockchain & Contrats intelligents</title>
+  <meta name="description" content="Cabinet de conseil spécialisé en Web3, blockchain et contrats intelligents. Stratégie, architecture, développement et intégration.">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Lora:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="luma-logo.png">
 
-        .container {
-            max-width:1120px;
-            margin:0 auto;
-            padding:0 1.5rem;
-        }
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:"Lato",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+      background:#05050a;
+      color:#f7f8ff;
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
 
-        /* Header */
-        header {
-            position:sticky;
-            top:0;
-            z-index:20;
-            backdrop-filter:blur(14px);
-            background:linear-gradient(to bottom,rgba(5,7,18,.96),rgba(5,7,18,.85),transparent);
-        }
-        .nav {
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            padding:.8rem 0;
-        }
-        .nav-left {
-            display:flex;
-            align-items:center;
-            gap:.7rem;
-        }
-        .nav-logo {
-            width:40px;
-            height:40px;
-        }
-        .nav-title {
-            font-size:1rem;
-            letter-spacing:.18em;
-            text-transform:uppercase;
-            font-weight:600;
-        }
-        .nav-sub {
-            font-size:.7rem;
-            text-transform:uppercase;
-            color:var(--muted);
-        }
-        .nav-menu {
-            display:flex;
-            gap:1.4rem;
-            font-size:.9rem;
-            color:var(--muted);
-        }
-        .nav-menu a {
-            position:relative;
-            padding-bottom:.15rem;
-        }
-        .nav-menu a::after {
-            content:"";
-            position:absolute;
-            left:0;
-            bottom:0;
-            width:0;
-            height:2px;
-            background:var(--accent);
-            transition:width .18s ease-out;
-        }
-        .nav-menu a:hover::after { width:100%; }
+    .page{
+      max-width:1100px;
+      margin:0 auto;
+      padding:24px 20px 60px;
+    }
 
-        /* Hero */
-        .hero {
-            padding:3.8rem 0 3rem;
-        }
-        .hero-grid {
-            display:grid;
-            grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);
-            gap:2.4rem;
-            align-items:center;
-        }
-        .badge {
-            display:inline-flex;
-            align-items:center;
-            gap:.4rem;
-            padding:.2rem .7rem;
-            border-radius:999px;
-            border:1px solid rgba(35,164,255,.5);
-            background:rgba(35,164,255,.09);
-            color:var(--accent);
-            font-size:.72rem;
-            letter-spacing:.12em;
-            text-transform:uppercase;
-            margin-bottom:1rem;
-        }
-        .hero h1 {
-            font-size:2.5rem;
-            line-height:1.15;
-            margin-bottom:.7rem;
-        }
-        .hero h1 span { color:var(--accent); }
-        .hero p {
-            font-size:.97rem;
-            color:var(--muted);
-            max-width:34rem;
-            margin-bottom:1.4rem;
-        }
-        .hero-actions {
-            display:flex;
-            flex-wrap:wrap;
-            gap:.8rem;
-            margin-bottom:1.4rem;
-        }
-        .btn {
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            padding:.65rem 1.4rem;
-            border-radius:999px;
-            font-size:.88rem;
-            font-weight:500;
-            border:1px solid transparent;
-            cursor:pointer;
-            transition:background .15s ease, transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-        }
-        .btn-primary {
-            background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-            color:#fff;
-            box-shadow:0 14px 36px rgba(35,164,255,.45);
-        }
-        .btn-primary:hover {
-            transform:translateY(-1px);
-            box-shadow:0 18px 40px rgba(35,164,255,.55);
-        }
-        .btn-outline {
-            background:transparent;
-            color:var(--muted);
-            border-color:var(--border);
-        }
-        .btn-outline:hover {
-            border-color:var(--accent);
-            color:var(--accent);
-        }
-        .hero-meta {
-            display:flex;
-            flex-wrap:wrap;
-            gap:1.4rem;
-            font-size:.8rem;
-            color:var(--muted);
-        }
-        .hero-meta strong {
-            display:block;
-            font-size:.95rem;
-            color:var(--text);
-        }
+    /* HEADER */
+    .header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:32px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .brand-logo{
+      width:40px;
+      height:40px;
+      border-radius:12px;
+      background:#10101c;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .brand-logo img{width:32px;height:32px;object-fit:contain}
+    .brand-text-main{
+      font-size:14px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      font-weight:700;
+    }
+    .brand-text-sub{
+      font-size:11px;
+      text-transform:uppercase;
+      color:#9aa2c6;
+      letter-spacing:.16em;
+    }
 
-        .hero-card {
-            background:radial-gradient(circle at top,#131d36 0,#050814 60%);
-            border-radius:1.1rem;
-            padding:1.4rem 1.3rem;
-            border:1px solid rgba(46,64,120,.7);
-            box-shadow:0 22px 60px rgba(0,0,0,.7);
-        }
-        .hero-card h2 {
-            font-size:.95rem;
-            text-transform:uppercase;
-            letter-spacing:.16em;
-            color:var(--muted);
-            margin-bottom:.7rem;
-        }
-        .hero-card p {
-            font-size:.86rem;
-            color:var(--muted);
-        }
-        .pill-list {
-            display:flex;
-            flex-wrap:wrap;
-            gap:.45rem;
-            margin-top:1rem;
-        }
-        .pill {
-            padding:.28rem .65rem;
-            border-radius:999px;
-            border:1px solid rgba(148,163,184,.3);
-            background:rgba(15,23,42,.8);
-            font-size:.7rem;
-            color:var(--muted);
-        }
+    .nav-links{
+      display:flex;
+      gap:18px;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:#9aa2c6;
+    }
+    .nav-links a{
+      position:relative;
+      padding-bottom:2px;
+    }
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:0;
+      height:2px;
+      background:#23a4ff;
+      transition:width .18s ease-out;
+    }
+    .nav-links a:hover::after{width:100%}
 
-        section {
-            padding:3.2rem 0;
-        }
-        .section-title {
-            font-size:1.35rem;
-            margin-bottom:.45rem;
-        }
-        .section-sub {
-            font-size:.9rem;
-            color:var(--muted);
-            margin-bottom:2rem;
-        }
+    /* HERO */
+    .hero{
+      padding:36px 0 40px;
+      border-bottom:1px solid #151525;
+      margin-bottom:40px;
+    }
+    .hero-layout{
+      display:grid;
+      grid-template-columns:minmax(0,1.7fr) minmax(0,.9fr);
+      gap:32px;
+      align-items:center;
+    }
+    .hero-eyebrow{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:#9aa2c6;
+      margin-bottom:10px;
+    }
+    .hero-title{
+      font-family:"Lora",serif;
+      font-size:28px;
+      line-height:1.25;
+      font-weight:600;
+      margin-bottom:18px;
+    }
+    .hero-title span{color:#23a4ff}
+    .hero-sub{
+      font-size:15px;
+      color:#b4bddc;
+      margin-bottom:20px;
+    }
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:18px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:9px 18px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      cursor:pointer;
+      border:1px solid transparent;
+      transition:all .15s ease;
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,#23a4ff,#4fd2ff);
+      color:#020308;
+      box-shadow:0 12px 28px rgba(35,164,255,.45);
+    }
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      box-shadow:0 18px 38px rgba(35,164,255,.6);
+    }
+    .btn-ghost{
+      border-color:#26273b;
+      color:#b4bddc;
+      background:rgba(7,7,18,.6);
+    }
+    .btn-ghost:hover{
+      border-color:#23a4ff;
+      color:#23a4ff;
+    }
+    .hero-meta{
+      font-size:12px;
+      color:#8088ac;
+    }
 
-        .grid-3 {
-            display:grid;
-            grid-template-columns:repeat(3,minmax(0,1fr));
-            gap:1.4rem;
-        }
-        .card {
-            background:var(--bg-soft);
-            border-radius:1rem;
-            padding:1.3rem 1.2rem;
-            border:1px solid var(--border);
-        }
-        .card h3 {
-            font-size:1rem;
-            margin-bottom:.45rem;
-        }
-        .card p {
-            font-size:.86rem;
-            color:var(--muted);
-        }
-        .tag {
-            display:inline-block;
-            font-size:.7rem;
-            text-transform:uppercase;
-            letter-spacing:.14em;
-            color:var(--accent);
-            margin-bottom:.45rem;
-        }
+    .hero-card{
+      background:radial-gradient(circle at top,#161a33 0,#070717 55%);
+      border-radius:18px;
+      padding:18px 18px 16px;
+      border:1px solid #252b47;
+      box-shadow:0 20px 50px rgba(0,0,0,.7);
+      font-size:13px;
+    }
+    .hero-card-title{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:#9aa2c6;
+      margin-bottom:10px;
+    }
+    .hero-card p{color:#b4bddc}
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-top:12px;
+    }
+    .pill{
+      font-size:11px;
+      padding:4px 9px;
+      border-radius:999px;
+      border:1px solid rgba(149,163,190,.35);
+      background:rgba(9,12,25,.9);
+      color:#9aa2c6;
+    }
 
-        .about {
-            max-width:720px;
-        }
+    /* SECTION BASE */
+    section{margin-bottom:56px;}
+    .section-eyebrow{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:#6f7799;
+      margin-bottom:6px;
+    }
+    .section-title{
+      font-family:"Lora",serif;
+      font-size:22px;
+      margin-bottom:12px;
+    }
+    .section-intro{
+      font-size:14px;
+      color:#b4bddc;
+      max-width:640px;
+      margin-bottom:26px;
+    }
 
-        .usecases {
-            display:grid;
-            grid-template-columns:repeat(3,minmax(0,1fr));
-            gap:1.4rem;
-        }
+    /* THINGS WE DO */
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+    .card{
+      background:#090a15;
+      border-radius:16px;
+      padding:16px 16px 18px;
+      border:1px solid #18182a;
+    }
+    .card-title{
+      font-size:15px;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+    .card p{
+      font-size:13px;
+      color:#a4accb;
+    }
 
-        .contact-box {
-            background:linear-gradient(135deg,#0b1021,#050814);
-            border-radius:1rem;
-            padding:1.7rem 1.5rem;
-            border:1px solid var(--border);
-        }
-        .contact-box p {
-            font-size:.9rem;
-            color:var(--muted);
-            margin-bottom:1rem;
-        }
-        .contact-row {
-            display:flex;
-            flex-wrap:wrap;
-            gap:1.2rem;
-            font-size:.86rem;
-            margin-bottom:1rem;
-        }
-        .contact-label {
-            font-weight:500;
-            color:var(--text);
-        }
+    /* HOW WE WORK */
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      font-size:13px;
+      color:#a4accb;
+    }
+    .step{
+      background:#090914;
+      border-radius:14px;
+      border:1px solid #1a1a2a;
+      padding:14px 14px 16px;
+    }
+    .step-num{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:#6f7799;
+      margin-bottom:6px;
+    }
 
-        footer {
-            border-top:1px solid #0b1120;
-            padding:1.2rem 0 1.8rem;
-            font-size:.8rem;
-            color:var(--muted);
-            text-align:center;
-        }
+    /* PROJECTS */
+    .projects{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+    .project{
+      background:#090a15;
+      border-radius:16px;
+      border:1px solid #18182a;
+      padding:14px 14px 18px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .project-tag{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:#6f7799;
+    }
+    .project-title{
+      font-size:14px;
+      font-weight:700;
+    }
+    .project p{
+      font-size:13px;
+      color:#a4accb;
+    }
 
-        @media (max-width:960px) {
-            .hero-grid { grid-template-columns:1fr; }
-            .grid-3, .usecases { grid-template-columns:1fr; }
-            .nav-menu { display:none; }
-            header { background:#050712; }
-        }
-    </style>
+    /* TESTIMONIALS */
+    .testimonials{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:20px;
+    }
+    .quote{
+      background:#090914;
+      border-radius:16px;
+      border:1px solid #18182a;
+      padding:18px;
+      font-size:13px;
+      color:#c2cae6;
+    }
+    .quote strong{
+      display:block;
+      margin-top:10px;
+      font-size:12px;
+      color:#9aa2c6;
+      font-weight:600;
+    }
+
+    /* CONTACT */
+    .contact-cta{
+      background:linear-gradient(135deg,#10142b,#050510);
+      border-radius:18px;
+      border:1px solid #222746;
+      padding:22px 20px 20px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      align-items:flex-start;
+    }
+    .contact-row{
+      font-size:14px;
+      color:#c2cae6;
+    }
+    .contact-label{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:#6f7799;
+      margin-bottom:3px;
+    }
+
+    footer{
+      margin-top:40px;
+      padding-top:16px;
+      border-top:1px solid #151525;
+      font-size:11px;
+      color:#6f7799;
+      text-align:center;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .hero-layout{grid-template-columns:1fr}
+      .grid-3,.steps,.projects,.testimonials{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
+<div class="page">
 
-<header>
-    <div class="container nav">
-        <div class="nav-left">
-            <!-- adapte le nom du fichier logo -->
-            <img src="luma-logo.png" alt="Luma Digital Labs" class="nav-logo">
-            <div>
-                <div class="nav-title">Luma</div>
-                <div class="nav-sub">Digital Labs</div>
-            </div>
-        </div>
-        <nav class="nav-menu">
-            <a href="#about">À propos</a>
-            <a href="#services">Services</a>
-            <a href="#web3">Web3</a>
-            <a href="#usecases">Cas d’usage</a>
-            <a href="#contact">Contact</a>
-        </nav>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="brand">
+      <div class="brand-logo">
+        <!-- remplace par ton fichier de logo -->
+        <img src="luma-logo.png" alt="Luma Digital Labs">
+      </div>
+      <div>
+        <div class="brand-text-main">Luma Digital Labs</div>
+        <div class="brand-text-sub">Web3 • Blockchain • IA</div>
+      </div>
     </div>
-</header>
+    <nav class="nav-links">
+      <a href="#about">À propos</a>
+      <a href="#services">Services</a>
+      <a href="#process">Méthode</a>
+      <a href="#projects">Projets</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-<main>
-    <!-- HERO -->
-    <section class="hero">
-        <div class="container hero-grid">
-            <div>
-                <div class="badge">Web3 • Blockchain • Contrats intelligents</div>
-                <h1>
-                    Luma <span>Digital Labs</span><br>
-                    Cabinet de conseil Web3 & blockchain.
-                </h1>
-                <p>
-                    Nous accompagnons les organisations qui veulent passer du discours aux résultats
-                    concrets : architecture blockchain, contrats intelligents, tokenomics et intégration
-                    Web3 dans des systèmes existants.
-                </p>
-                <div class="hero-actions">
-                    <a href="#contact" class="btn btn-primary">Parler d’un projet Web3</a>
-                    <a href="#services" class="btn btn-outline">Découvrir nos services</a>
-                </div>
-                <div class="hero-meta">
-                    <div>
-                        <strong>Focus Web3</strong>
-                        Blockchain, smart contracts, dApps, automatisation on-chain / off-chain.
-                    </div>
-                    <div>
-                        <strong>Approche pragmatique</strong>
-                        Projets pilotes, ROI mesurable, intégration progressive plutôt que “big bang”.
-                    </div>
-                </div>
-            </div>
-
-            <aside class="hero-card">
-                <h2>Ce que nous faisons</h2>
-                <p>
-                    Luma Digital Labs conçoit, audite et implémente des solutions Web3 adaptées à votre
-                    réalité : de la simple preuve de concept à la mise en production sécurisée.
-                </p>
-                <div class="pill-list">
-                    <span class="pill">Architecture blockchain</span>
-                    <span class="pill">Contrats intelligents</span>
-                    <span class="pill">dApps & intégration</span>
-                    <span class="pill">Tokenomics</span>
-                </div>
-            </aside>
+  <!-- HERO -->
+  <section class="hero" id="start">
+    <div class="hero-layout">
+      <div>
+        <div class="hero-eyebrow">Cabinet de conseil Web3 & blockchain</div>
+        <h1 class="hero-title">
+          Bonjour, ici <span>Luma Digital Labs</span>.  
+          Nous concevons des architectures Web3, des contrats intelligents
+          et des solutions blockchain qui servent vraiment votre métier.
+        </h1>
+        <p class="hero-sub">
+          Notre obsession&nbsp;: des projets simples, créatifs et sans bullshit.  
+          Vous venez avec une idée ou un problème business, nous repartons avec
+          un prototype concret, mesurable et sécurisé.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Parler d’un projet Web3</a>
+          <a href="#services" class="btn btn-ghost">Voir ce que nous faisons</a>
         </div>
-    </section>
-
-    <!-- A PROPOS -->
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title">À propos de Luma Digital Labs</h2>
-            <p class="section-sub about">
-                Luma Digital Labs est un laboratoire de conseil spécialisé dans le Web3, la blockchain
-                et les contrats intelligents. Notre rôle : transformer des idées en prototypes concrets,
-                puis en solutions robustes reliées à vos systèmes actuels (site, CRM, ERP, outils métiers).
-            </p>
+        <div class="hero-meta">
+          Basé au Québec, travaillant à distance avec des PME, startups et organisations
+          publiques qui veulent expérimenter le Web3 sans perdre de temps.
         </div>
-    </section>
+      </div>
 
-    <!-- SERVICES -->
-    <section id="services">
-        <div class="container">
-            <h2 class="section-title">Services principaux</h2>
-            <p class="section-sub">
-                Une offre structurée en blocs clairs pour couvrir tout le cycle : réflexion, conception,
-                développement et accompagnement.
-            </p>
-
-            <div class="grid-3">
-                <article class="card">
-                    <div class="tag">01 • Conseil Web3</div>
-                    <h3>Stratégie blockchain & cas d’usage</h3>
-                    <p>
-                        Analyse de vos besoins, choix des technologies (EVM, L2, sidechains, etc.),
-                        étude de faisabilité et définition de scénarios réalistes alignés sur vos objectifs.
-                    </p>
-                </article>
-
-                <article class="card">
-                    <div class="tag">02 • Développement</div>
-                    <h3>Contrats intelligents & dApps</h3>
-                    <p>
-                        Conception et développement de smart contracts (tokens, vesting, gouvernance,
-                        paiements, automatisation) ainsi que d’interfaces Web3 adaptées à vos utilisateurs.
-                    </p>
-                </article>
-
-                <article class="card">
-                    <div class="tag">03 • Intégration</div>
-                    <h3>Connexion Web2 ↔ Web3</h3>
-                    <p>
-                        Intégration avec vos systèmes existants : API, back-office, tableaux de bord,
-                        automatisations off-chain et monitoring continu des contrats déployés.
-                    </p>
-                </article>
-            </div>
+      <aside class="hero-card">
+        <div class="hero-card-title">Ce que fait Luma Digital Labs</div>
+        <p>
+          Analyse de vos cas d’usage, design d’architecture blockchain, écriture et audit
+          de contrats intelligents, intégration à vos systèmes existants (web, CRM, outils internes).
+        </p>
+        <div class="pill-row">
+          <span class="pill">Contrats intelligents (EVM)</span>
+          <span class="pill">Tokenomics</span>
+          <span class="pill">DApps & portails Web3</span>
+          <span class="pill">Intégration Web2 ↔ Web3</span>
         </div>
-    </section>
-
-    <!-- WEB3 VISION -->
-    <section id="web3">
-        <div class="container">
-            <h2 class="section-title">Notre approche du Web3</h2>
-            <p class="section-sub">
-                Le Web3 n’est pas une mode, mais un ensemble d’outils pour créer de nouveaux modèles
-                économiques, renforcer la traçabilité et automatiser des règles métier directement dans
-                l’infrastructure.
-            </p>
-
-            <div class="grid-3">
-                <article class="card">
-                    <h3>On-chain = règles</h3>
-                    <p>
-                        Les contrats intelligents permettent d’encoder des règles métier : distribution
-                        de revenus, droits d’accès, gouvernance, paiements conditionnels, etc.
-                    </p>
-                </article>
-                <article class="card">
-                    <h3>Transparence & traçabilité</h3>
-                    <p>
-                        Registres immuables, journaux publics ou privés, preuves vérifiables : la
-                        blockchain devient une couche de confiance partagée entre plusieurs acteurs.
-                    </p>
-                </article>
-                <article class="card">
-                    <h3>Interopérabilité</h3>
-                    <p>
-                        Nous privilégions des solutions compatibles avec les standards (ERC-20, ERC-721,
-                        ERC-1155, etc.) afin de rester ouverts aux écosystèmes existants.
-                    </p>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- CAS D'USAGE -->
-    <section id="usecases">
-        <div class="container">
-            <h2 class="section-title">Exemples de cas d’usage</h2>
-            <p class="section-sub">
-                Quelques scénarios typiques où Luma Digital Labs peut apporter une vraie valeur.
-            </p>
-
-            <div class="usecases">
-                <article class="card">
-                    <h3>Tokenisation & utilité</h3>
-                    <p>
-                        Conception de tokens utilitaires ou de mécanismes de récompense pour communautés,
-                        plateformes ou produits numériques (accès, droits, avantages, gouvernance).
-                    </p>
-                </article>
-                <article class="card">
-                    <h3>Contrats de distribution</h3>
-                    <p>
-                        Paiements automatisés entre partenaires, créateurs, fournisseurs, avec règles
-                        codées dans des smart contracts (pourcentage, plafonds, calendriers).
-                    </p>
-                </article>
-                <article class="card">
-                    <h3>Preuve & certification</h3>
-                    <p>
-                        Enregistrement horodaté de preuves (documents, événements, identifiants) pour
-                        renforcer la confiance sans complexifier vos processus internes.
-                    </p>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-        <div class="container">
-            <h2 class="section-title">Parler d’un projet Web3</h2>
-            <p class="section-sub">
-                Un échange de 30 minutes suffit pour valider s’il existe un vrai cas d’usage Web3 pour
-                votre organisation et définir un premier prototype raisonnable.
-            </p>
-
-            <div class="contact-box">
-                <p>
-                    Présentez brièvement votre contexte (secteur, taille, objectif) et ce que vous
-                    souhaitez explorer : tokenisation, automatisation, gouvernance, traçabilité, etc.
-                </p>
-
-                <div class="contact-row">
-                    <div>
-                        <div class="contact-label">Courriel</div>
-                        <div>contact@lumadigitallabs.com</div>
-                    </div>
-                    <div>
-                        <div class="contact-label">Canal privilégié</div>
-                        <div>Visio, téléphone ou échange par e-mail structuré.</div>
-                    </div>
-                </div>
-
-                <a href="mailto:contact@lumadigitallabs.com?subject=Projet%20Web3%20-%20Luma%20Digital%20Labs" class="btn btn-primary">
-                    Écrire à Luma Digital Labs
-                </a>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer>
-    <div class="container">
-        © <span id="year"></span> Luma Digital Labs — Conseil Web3, blockchain & contrats intelligents.
+      </aside>
     </div>
-</footer>
+  </section>
+
+  <!-- ABOUT / SKILLS -->
+  <section id="about">
+    <div class="section-eyebrow">À propos</div>
+    <h2 class="section-title">Un laboratoire de conseil pour vos idées Web3</h2>
+    <p class="section-intro">
+      Luma Digital Labs n’est pas une “agence de slides”. Nous travaillons comme un petit
+      laboratoire : on clarifie votre objectif, on choisit la bonne techno, on construit
+      un prototype rapide, puis on décide ensemble s’il mérite d’aller en production.
+    </p>
+  </section>
+
+  <!-- SERVICES / THINGS I DO -->
+  <section id="services">
+    <div class="section-eyebrow">Services</div>
+    <h2 class="section-title">Ce que nous faisons pour vous</h2>
+    <p class="section-intro">
+      Une offre courte, claire, orientée résultats. Chaque mission peut commencer par un
+      atelier de cadrage de quelques heures.
+    </p>
+
+    <div class="grid-3">
+      <article class="card">
+        <h3 class="card-title">Conseil & stratégie Web3</h3>
+        <p>
+          Définition des cas d’usage pertinents (ou abandon des mauvais). Choix des
+          blockchains, analyse des risques, estimation des coûts et du potentiel ROI.
+        </p>
+      </article>
+      <article class="card">
+        <h3 class="card-title">Contrats intelligents & tokens</h3>
+        <p>
+          Conception et développement de smart contracts : tokens utilitaires, mécanismes
+          de distribution, vesting, paiements automatisés, gouvernance, etc.
+        </p>
+      </article>
+      <article class="card">
+        <h3 class="card-title">Intégration & automatisation</h3>
+        <p>
+          Connexion de vos contrats on-chain à vos systèmes existants : sites, API,
+          back-office, tableaux de bord, alertes et automatisations off-chain.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- HOW WE WORK -->
+  <section id="process">
+    <div class="section-eyebrow">Méthode</div>
+    <h2 class="section-title">Comment nous travaillons</h2>
+    <p class="section-intro">
+      Peu importe le projet, nous appliquons la même approche : comprendre, prototyper,
+      sécuriser, puis déployer progressivement.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01 • Comprendre</div>
+        <p>
+          Atelier court pour clarifier le problème, les acteurs, les contraintes
+          réglementaires et les systèmes déjà en place.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-num">02 • Prototyper</div>
+        <p>
+          Maquettes, diagrammes d’architecture et premier smart contract sur un réseau
+          de test pour valider les idées sans risque.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-num">03 • Sécuriser</div>
+        <p>
+          Revue de code, scénarios d’attaque, règles de gouvernance et processus métier
+          autour du contrat (clés, droits, monitoring).
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-num">04 • Déployer & itérer</div>
+        <p>
+          Déploiement contrôlé, dashboards de suivi, ajustements en continu selon les
+          retours des premiers utilisateurs.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-eyebrow">Exemples de missions</div>
+    <h2 class="section-title">Quelques types de projets Web3</h2>
+    <p class="section-intro">
+      Voici le genre de choses sur lesquelles Luma Digital Labs aime travailler. Les noms
+      sont génériques, mais la logique est réaliste.
+    </p>
+
+    <div class="projects">
+      <article class="project">
+        <div class="project-tag">Plateforme communautaire</div>
+        <div class="project-title">Token utilitaire & programme de fidélité</div>
+        <p>
+          Conception d’un token interne pour récompenser les actions utiles
+          (contenu, parrainage, participation) et offrir des avantages exclusifs.
+        </p>
+      </article>
+      <article class="project">
+        <div class="project-tag">Partenaires & revenus</div>
+        <div class="project-title">Contrat de distribution automatisé</div>
+        <p>
+          Smart contract qui répartit automatiquement les revenus entre plusieurs
+          acteurs selon des règles transparentes et vérifiables.
+        </p>
+      </article>
+      <article class="project">
+        <div class="project-tag">Traçabilité</div>
+        <div class="project-title">Registre d’événements sur blockchain</div>
+        <p>
+          Enregistrement immuable d’événements clés (document, opération,
+          certification) pour apporter une preuve sans complexifier les usages.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS (placeholder) -->
+  <section>
+    <div class="section-eyebrow">Ce que disent nos clients</div>
+    <h2 class="section-title">Un langage technique, mais toujours compréhensible</h2>
+    <p class="section-intro">
+      Objectif : que vos équipes métiers comprennent ce que nous faisons, pourquoi nous
+      le faisons, et ce que cela change concrètement pour elles.
+    </p>
+    <div class="testimonials">
+      <div class="quote">
+        “Luma nous a aidés à passer du buzzword ‘blockchain’ à un projet concret avec un
+        business case solide. Le prototype nous a permis de convaincre la direction.”
+        <strong>Responsable innovation — secteur services</strong>
+      </div>
+      <div class="quote">
+        “Ce que nous avons apprécié : pas de promesses magiques, une explication claire
+        des risques, et un plan précis pour démarrer petit sans bloquer l’IT.”
+        <strong>Directeur TI — organisation publique</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-eyebrow">Contact</div>
+    <h2 class="section-title">Parlons de votre idée Web3</h2>
+
+    <div class="contact-cta">
+      <div>
+        <div class="contact-label">Format</div>
+        <p class="contact-row">
+          Appel de 30 minutes pour comprendre votre contexte, vos objectifs
+          et voir s’il y a un vrai fit avec le Web3.
+        </p>
+      </div>
+      <div>
+        <div class="contact-label">Courriel</div>
+        <p class="contact-row">contact@lumadigitallabs.com</p>
+      </div>
+      <a href="mailto:contact@lumadigitallabs.com?subject=Projet%20Web3%20-%20Luma%20Digital%20Labs"
+         class="btn btn-primary">
+        Écrire à Luma Digital Labs
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Luma Digital Labs — Web3, blockchain & contrats intelligents.
+  </footer>
+
+</div>
 
 <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('year').textContent = new Date().getFullYear();
 </script>
-
 </body>
 </html>
